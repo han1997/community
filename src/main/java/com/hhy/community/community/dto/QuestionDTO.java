@@ -1,13 +1,14 @@
-package com.hhy.community.community.model;
+package com.hhy.community.community.dto;
 
+import com.hhy.community.community.model.User;
 import lombok.Data;
 
 /**
  * @author hhy1997
- * 2020/1/24
+ * 2020/1/30
  */
 @Data
-public class Question {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -18,5 +19,5 @@ public class Question {
     private Integer commentCount;
     private Integer viewCount;
     private Integer likeCount;
-
+    private User user;
 }

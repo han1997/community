@@ -58,10 +58,9 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
-            if (userMapper.findByAccountId(user.getAccountId()) == null){
-                userMapper.insert(user);
-            }
-            response.addCookie(new Cookie("token",token));
+            user.setAvatar(githubUser.getAvatarUrl());
+            userMapper.insert(user);
+            response.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
 //            登录失败，重新登录
