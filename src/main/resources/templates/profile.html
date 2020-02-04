@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
+<!--    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -18,7 +20,7 @@
             <div class="media" th:each="question: ${paginationDTO.questions}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object img-rounded media-object-img-size" th:src="${question.user.avatar}">
+                        <img class="media-object img-rounded media-object-img-size" th:src="${question.user.getAvatarUrl}">
                     </a>
                 </div>
                 <div class="media-body">
