@@ -12,7 +12,5 @@ create table question
 	tag varchar(256),
 	constraint question_pk
 		primary key (id)
-);
-
-comment on table question is '问题';
-
+)
+comment '问题';
