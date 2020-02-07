@@ -2,7 +2,6 @@ package com.hhy.community.community.controller;
 
 import com.hhy.community.community.dto.AccessTokenDTO;
 import com.hhy.community.community.dto.GithubUser;
-import com.hhy.community.community.mapper.UserMapper;
 import com.hhy.community.community.model.User;
 import com.hhy.community.community.provider.GithubProvider;
 import com.hhy.community.community.service.UserService;

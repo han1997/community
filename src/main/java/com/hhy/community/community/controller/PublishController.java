@@ -1,8 +1,6 @@
 package com.hhy.community.community.controller;
 
 import com.hhy.community.community.dto.QuestionDTO;
-import com.hhy.community.community.mapper.QuestionMapper;
-import com.hhy.community.community.mapper.UserMapper;
 import com.hhy.community.community.model.Question;
 import com.hhy.community.community.model.User;
 import com.hhy.community.community.service.QuestionService;
@@ -32,7 +30,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id", required = false) Integer id,
+    public String edit(@PathVariable(name = "id", required = false) Long id,
                        Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
         model.addAttribute("title", questionDTO.getTitle());
@@ -47,7 +45,7 @@ public class PublishController {
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
-            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "id", required = false) Long id,
             HttpServletRequest request,
             Model model) {
         model.addAttribute("title", title);

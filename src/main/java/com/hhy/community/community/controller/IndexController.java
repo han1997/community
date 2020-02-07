@@ -1,7 +1,6 @@
 package com.hhy.community.community.controller;
 
 import com.hhy.community.community.dto.PaginationDTO;
-import com.hhy.community.community.mapper.UserMapper;
 import com.hhy.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

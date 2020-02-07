@@ -42,7 +42,7 @@ public class UserService {
                     .andIdEqualTo(users.get(0).getId());
             int update = userMapper.updateByExampleSelective(updateUser, example);
             if (update == 0){
-                throw new CustomizeException(CustomizeErrorCode.USER_NOT_FOUNT);
+                throw new CustomizeException(CustomizeErrorCode.PUBLISH_NOT_FOUND);
             }
         }
     }

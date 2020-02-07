@@ -4,6 +4,7 @@ import com.hhy.community.community.dto.PaginationDTO;
 import com.hhy.community.community.dto.QuestionDTO;
 import com.hhy.community.community.exception.CustomizeErrorCode;
 import com.hhy.community.community.exception.CustomizeException;
+import com.hhy.community.community.mapper.QuestionExtMapper;
 import com.hhy.community.community.mapper.QuestionMapper;
 import com.hhy.community.community.mapper.UserMapper;
 import com.hhy.community.community.model.Question;
@@ -26,11 +27,13 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
+    private QuestionExtMapper questionExtMapper;
+    @Autowired
     private QuestionMapper questionMapper;
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
-        if (question == null){
+        if (question == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
         QuestionDTO questionDTO = new QuestionDTO();
@@ -70,7 +73,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO listById(Integer id, Integer page, Integer size) {
+    public PaginationDTO listById(Long id, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
         QuestionExample questionExample = new QuestionExample();
@@ -112,7 +115,7 @@ public class QuestionService {
             //创建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.insert(question);
+            questionMapper.insertSelective(question);
         } else {
             //更新
             question.setGmtModified(System.currentTimeMillis());
@@ -125,9 +128,22 @@ public class QuestionService {
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
             int update = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
-            if (update == 0){
+            if (update == 0) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Long id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
+//        Question updateQuestion = new Question();
+//        QuestionExample questionExample = new QuestionExample();
+//        updateQuestion.setViewCount(question.getViewCount() + 1);
+//        questionExample.createCriteria()
+//                .andIdEqualTo(id);
+//        questionMapper.updateByExampleSelective(updateQuestion, questionExample);
     }
 }
