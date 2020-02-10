@@ -8,6 +8,7 @@ body {
 }
 
 .btn-publish {
+    margin-top: 5px;
     float: right;
     margin-bottom: 10px;
 }
@@ -22,10 +23,47 @@ body {
     font-weight: normal;
     color: #999;
 }
+text-desc .active{
+    background-color: #2e6da4 !important;
+}
 
 .profile .section {
     margin-top: 25px;
 }
-.community-menu{
+
+.community-menu {
     color: #999;
+}
+
+.user-name {
+    padding-top: 8px !important;
+}
+
+.like-comment {
+    padding-left: 50px;
+    padding-top: 7px;
+}
+.like-comment .text-desc a{
+    text-decoration-line: none;
+    color: #999 !important;
+}
+.like-comment .text-desc a:hover{
+    text-decoration: none;
+    color: #499ef3 !important;
+}
+.like-comment .text-desc a span{
+    font-size: 14px;
+}
+#comment-content .media{
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+.second-comment{
+    margin: 10px 0px 5px 20px;
+    border: 1px solid rgb(238, 238, 238);
+    padding-top: 10px;
+    border-radius: 5px;
+}
+.second-comment .media{
+    border-bottom: none !important;
 }

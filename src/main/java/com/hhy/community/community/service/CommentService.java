@@ -1,15 +1,24 @@
 package com.hhy.community.community.service;
 
+import com.hhy.community.community.dto.CommentDTO;
 import com.hhy.community.community.enums.CommentTypeEnum;
 import com.hhy.community.community.exception.CustomizeErrorCode;
 import com.hhy.community.community.exception.CustomizeException;
 import com.hhy.community.community.mapper.CommentMapper;
 import com.hhy.community.community.mapper.QuestionExtMapper;
 import com.hhy.community.community.mapper.QuestionMapper;
-import com.hhy.community.community.model.Comment;
-import com.hhy.community.community.model.Question;
+import com.hhy.community.community.mapper.UserMapper;
+import com.hhy.community.community.model.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author hhy1997
@@ -23,7 +32,10 @@ public class CommentService {
     private QuestionMapper questionMapper;
     @Autowired
     private QuestionExtMapper questionExtMapper;
+    @Autowired
+    private UserMapper userMapper;
 
+    @Transactional
     public void createOrUpdate(Comment comment) {
         if (comment.getParentId() == null || comment.getParentId() == 0) {
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
@@ -33,7 +45,7 @@ public class CommentService {
         }
         if (comment.getType().equals(CommentTypeEnum.COMMENT.getType())) {
             //回复评论
-            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getId());
+            Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
             if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
@@ -49,5 +61,35 @@ public class CommentService {
             questionExtMapper.incCommentCount(question);
         }
 
+    }
+
+    public List<CommentDTO> ListByTargetId(Long id, CommentTypeEnum typeEnum) {
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria()
+                .andParentIdEqualTo(id)
+                .andTypeEqualTo(typeEnum.getType());
+        commentExample.setOrderByClause("gmt_create desc");
+        List<Comment> comments = commentMapper.selectByExample(commentExample);
+        if (comments.size() == 0){
+            return new ArrayList<>();
+        }
+//        获取去充的评论人
+        Set<Long> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
+        List<Long> userIds = new ArrayList<>();
+        userIds.addAll(commentators);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andIdIn(userIds);
+        List<User> users = userMapper.selectByExample(userExample);
+//        获取评论人转换为map
+        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+//      comment转换为commentDTO
+        List<CommentDTO> commentDTOS = comments.stream().map(comment -> {
+            CommentDTO commentDTO = new CommentDTO();
+            BeanUtils.copyProperties(comment,commentDTO);
+            commentDTO.setUser(userMap.get(comment.getCommentator()));
+            return commentDTO;
+        }).collect(Collectors.toList());
+        return commentDTOS;
     }
 }
