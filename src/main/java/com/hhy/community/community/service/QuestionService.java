@@ -137,13 +137,7 @@ public class QuestionService {
     public void incView(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         question.setId(id);
-        question.setViewCount(1);
+        question.setViewCount(1L);
         questionExtMapper.incView(question);
-//        Question updateQuestion = new Question();
-//        QuestionExample questionExample = new QuestionExample();
-//        updateQuestion.setViewCount(question.getViewCount() + 1);
-//        questionExample.createCriteria()
-//                .andIdEqualTo(id);
-//        questionMapper.updateByExampleSelective(updateQuestion, questionExample);
     }
 }

@@ -65,5 +65,6 @@ text-desc .active{
     border-radius: 5px;
 }
 .second-comment .media{
+    margin-bottom: 15px !important;
     border-bottom: none !important;
 }

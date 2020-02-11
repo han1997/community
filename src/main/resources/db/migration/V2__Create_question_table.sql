@@ -6,9 +6,9 @@ create table question
 	gmt_create bigint,
 	gmt_modified bigint,
 	creator bigint,
-	comment_count int default 0,
-	view_count int default 0,
-	like_count int default 0,
+	comment_count bigint default 0,
+	view_count bigint default 0,
+	like_count bigint default 0,
 	tag varchar(256),
 	constraint question_pk
 		primary key (id)

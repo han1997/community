@@ -9,8 +9,7 @@
     <script type="application/javascript" src="/js/jQuery.min.js"></script>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/main.js"></script>
-    <!--    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">-->
-    <!--    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+    <script type="application/javascript" src="/js/moment.min.js"></script>
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -38,7 +37,6 @@
                     </a>
                 </div>
             </div>
-            <!--            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 0">-->
             <!--            评论内容-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
                 <h4>
@@ -61,15 +59,16 @@
                         </div>
                         <div class="like-comment">
                         <span class="text-desc">
+<!--                            点赞按钮-->
                             <button type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span th:text="${comment.likeCount}"></span>
                             </button>
-                            &nbsp;
+<!--                            回复按钮-->
                             <button type="button" class="btn btn-default" th:data-id="${comment.id}"
                                     onclick="collapseComment(this)">
                                 <span class="glyphicon glyphicon-comment"></span>
-                                <span></span>
+                                <span th:text="${comment.commentCount}"></span>
                             </button>
                             <span class="btn-publish"
                                   th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
@@ -79,35 +78,17 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 second-comment collapse"
                              th:id="${'comment-' +comment.id}">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object img-rounded media-object-img-size"
-                                                 th:src="${comment.user.avatarUrl}">
-                                        </a>
-                                    </div>
-                                    <div class="media-body text-desc">
-                                        <h6 class="media-heading">
-                                            <a th:href="'/user/' + ${comment.user.id}"
-                                               th:text="${comment.user.name}"></a>
-                                        </h6>
-                                        <span th:text="${comment.content}"></span>&nbsp;
-                                        <span class="btn-publish"
-                                              th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
-                                        </span>
-                                    </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="评论一下..."
+                                           th:id="${'reply-'+comment.id}">
                                 </div>
-                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="评论一下..." th:id="${'reply-'+comment.id}">
-                                </div>
-                                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <button type="button" class="btn btn-default btn-publish">取消</button>
-                                    <button type="button" class="btn btn-success btn-publish" onclick="reply(this)" th:data-id="${comment.id}">回复</button>
-                                </div>
+                                <button type="button" class="btn btn-default btn-publish">取消</button>
+                                <button type="button" class="btn btn-success btn-publish" onclick="reply(this)"
+                                        th:data-id="${comment.id}">回复
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <!--                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
                     <!--                评论回复框-->
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment-input">
                         <h4>

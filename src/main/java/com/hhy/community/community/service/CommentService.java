@@ -4,10 +4,7 @@ import com.hhy.community.community.dto.CommentDTO;
 import com.hhy.community.community.enums.CommentTypeEnum;
 import com.hhy.community.community.exception.CustomizeErrorCode;
 import com.hhy.community.community.exception.CustomizeException;
-import com.hhy.community.community.mapper.CommentMapper;
-import com.hhy.community.community.mapper.QuestionExtMapper;
-import com.hhy.community.community.mapper.QuestionMapper;
-import com.hhy.community.community.mapper.UserMapper;
+import com.hhy.community.community.mapper.*;
 import com.hhy.community.community.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +31,8 @@ public class CommentService {
     private QuestionExtMapper questionExtMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private CommentExtMapper commentExtMapper;
 
     @Transactional
     public void createOrUpdate(Comment comment) {
@@ -50,6 +49,12 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+//            parentComment = commentMapper.selectByPrimaryKey(parentComment.getId());
+            parentComment.setCommentCount(1L);
+            commentExtMapper.incCommentCount(parentComment);
+
         } else {
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -57,7 +62,7 @@ public class CommentService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
             commentMapper.insert(comment);
-            question.setCommentCount(1);
+            question.setCommentCount(1L);
             questionExtMapper.incCommentCount(question);
         }
 
