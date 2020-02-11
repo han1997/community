@@ -68,3 +68,14 @@ text-desc .active{
     margin-bottom: 15px !important;
     border-bottom: none !important;
 }
+.question-tags{
+    margin-right: 7px !important;
+}
+.question-ul{
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+a:hover{
+    text-decoration: none !important;
+}

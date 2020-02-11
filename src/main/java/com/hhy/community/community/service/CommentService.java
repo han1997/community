@@ -48,7 +48,7 @@ public class CommentService {
             if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
-            commentMapper.insert(comment);
+            commentMapper.insertSelective(comment);
             Comment parentComment = new Comment();
             parentComment.setId(comment.getParentId());
 //            parentComment = commentMapper.selectByPrimaryKey(parentComment.getId());
@@ -61,7 +61,7 @@ public class CommentService {
             if (question == null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
-            commentMapper.insert(comment);
+            commentMapper.insertSelective(comment);
             question.setCommentCount(1L);
             questionExtMapper.incCommentCount(question);
         }

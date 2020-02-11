@@ -19,6 +19,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!--            问题内容-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                <!--                信息区-->
                 <h3><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <span
                         th:text="${question.title}"></span></h3>
                 &nbsp;<span class="text-desc">
@@ -29,6 +30,16 @@
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!--                标签-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="label label-info question-tags" th:each="tag : ${question.tag.split(',')}">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <span class="label label-info" th:text="${tag}">
+                        </span>
+                    </span>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!--                编辑-->
                 <div>
                     <a class="community-menu" th:href="'/publish/'+${question.id}"
                        th:if="${session.user != null && session.user.id == question.creator}">
@@ -130,8 +141,18 @@
                 </div>
             </div>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <h4>联系小韩同学</h4>
+                <img class="img-thumbnail" src="/img/wechat.jpg" alt="" style="width: 100%;width: 120px;">
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3>相关问题</h3>
+                <ul class="question-ul" th:each="relatedQuestion : ${relatedQuestions}">
+                    <a th:href="'/question/'+${relatedQuestion.id}">
+                        <li class="" th:text="${relatedQuestion.title}"></li>
+                    </a>
+                </ul>
             </div>
         </div>
     </div>
