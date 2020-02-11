@@ -64,7 +64,7 @@
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span th:text="${comment.likeCount}"></span>
                             </button>
-<!--                            回复按钮-->
+                            <!--                            回复按钮-->
                             <button type="button" class="btn btn-default" th:data-id="${comment.id}"
                                     onclick="collapseComment(this)">
                                 <span class="glyphicon glyphicon-comment"></span>
@@ -112,28 +112,29 @@
                     </div>
                 </div>
             </div>
-            <!--            右边信息块-->
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h3>发起人</h3>
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object img-rounded media-object-img-size"
-                                     th:src="${question.user.avatarUrl}">
-                            </a>
-                        </div>
-                        <div class="media-body user-name">
-                            <a th:href="'/question/' + ${question.id}" th:text="${question.user.name}"></a>
-                        </div>
+        </div>
+        <!--            右边信息块-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>发起人</h3>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded media-object-img-size"
+                                 th:src="${question.user.avatarUrl}">
+                        </a>
+                    </div>
+                    <div class="media-body user-name">
+                        <a th:href="'/question/' + ${question.id}" th:text="${question.user.name}"></a>
                     </div>
                 </div>
-                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h3>相关问题</h3>
-                </div>
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>相关问题</h3>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
