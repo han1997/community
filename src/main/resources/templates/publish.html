@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
-<!--    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">-->
-<!--    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+    <script type="application/javascript" src="/js/main.js"></script>
+    <!--    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -23,17 +24,42 @@
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题...."
+                           autocomplete="off"
                            th:value="${title}">
                 </div>
                 <div class="form-group">
                     <label for="description">问题补充（必填，请参照右侧提示）</label>
                     <textarea name="description" class="form-control" id="description" cols="30" rows="10"
+                              autocomplete="off"
                               th:text="${description}"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
-                    <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以'，'隔开"
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签，以','隔开"
+                           autocomplete="off"
+                           onblur="hideTags()" onfocus="showTags()"
                            th:value="${tag}">
+                    <div id="select-tag" class="publish-tag-tab" style="display: none;">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" th:each="selectCategory: ${tags}">
+                                <a th:href="${'#'+selectCategory.categoryName}" aria-controls="home" role="tab"
+                                   data-toggle="tab" th:text="${selectCategory.categoryName}"></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel"  class="tab-pane" th:id="${selectCategory.categoryName}"
+                                 th:each="selectCategory: ${tags}">
+                                <span>
+                                    <span th:each="selectTag: ${selectCategory.tags}">
+                                    <span class="label label-info" onclick="selectTag(this)"
+                                          th:data-tag="${selectTag}"
+                                          th:text="${' '+selectTag}">
+                                    </span>
+                                </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="container-fluid">
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">

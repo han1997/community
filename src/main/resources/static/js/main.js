@@ -68,20 +68,20 @@ function collapseComment(e) {
                             "src": comment.user.avatarUrl
                         }));
 
-                        let mediaBodyElement = $("<div/>",{
-                            "class":"media-body text-desc",
-                        }).append($("<h6/>",{
-                            "class":"media-heading",
-                            html:comment.user.name
-                        })).append($("<span/>",{
-                            html:comment.content
-                        })).append($("<span/>",{
-                            "class":"btn-publish",
-                            html:moment(comment.gmtCreate).format('YYYY-MM-DD')
+                        let mediaBodyElement = $("<div/>", {
+                            "class": "media-body text-desc",
+                        }).append($("<h6/>", {
+                            "class": "media-heading",
+                            html: comment.user.name
+                        })).append($("<span/>", {
+                            html: comment.content
+                        })).append($("<span/>", {
+                            "class": "btn-publish",
+                            html: moment(comment.gmtCreate).format('YYYY-MM-DD')
                         }));
 
                         let media = $("<div/>", {
-                            "class":"media"
+                            "class": "media"
                         }).append(mediaLeftElement).append(mediaBodyElement);
 
                         let commentElement = $("<div/>", {
@@ -97,3 +97,26 @@ function collapseComment(e) {
         e.classList.add("active");
     }
 };
+
+function hideTags() {
+    // $('#select-tag').hide();
+};
+
+function showTags() {
+        $('#select-tag').show();
+};
+
+function selectTag(e) {
+    let tag = e.getAttribute("data-tag");
+    let tags = $("#tag").val();
+    console.log("tag:"+tag+",tags:"+tags);
+    if (tags.indexOf(tag) === -1) {
+        if (tags) {
+            console.log("111");
+            $("#tag").val(tags + "," + tag);
+        } else {
+            console.log("222");
+            $("#tag").val(tag);
+        };
+    }
+}
