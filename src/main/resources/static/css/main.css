@@ -79,3 +79,8 @@ text-desc .active{
 a:hover{
     text-decoration: none !important;
 }
+
+/*publish*/
+#select-tag .tab-pane .label-info{
+    white-space: normal;
+}
