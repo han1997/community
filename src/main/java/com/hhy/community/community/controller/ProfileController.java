@@ -3,6 +3,7 @@ package com.hhy.community.community.controller;
 import com.hhy.community.community.dto.PaginationDTO;
 import com.hhy.community.community.mapper.UserMapper;
 import com.hhy.community.community.model.User;
+import com.hhy.community.community.service.NotificationService;
 import com.hhy.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 public class ProfileController {
 
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private QuestionService questionService;
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
@@ -38,12 +39,16 @@ public class ProfileController {
         if ("questions".equals(action)){
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的提问");
+            PaginationDTO paginationDTO = questionService.listById(user.getId(), page, size);
+            model.addAttribute("paginationDTO",paginationDTO);
         }else if ("replies".equals(action)){
+            PaginationDTO paginationDTO = notificationService.listById(user.getId(), page, size);
+            Long unReadCount = notificationService.unReadCount(user.getId());
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
+            model.addAttribute("unReadCount",unReadCount);
+            model.addAttribute("paginationDTO",paginationDTO);
         }
-        PaginationDTO paginationDTO = questionService.listById(user.getId(), page, size);
-        model.addAttribute("paginationDTO",paginationDTO);
         return "profile";
     }
 }

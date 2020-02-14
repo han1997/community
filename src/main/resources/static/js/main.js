@@ -43,6 +43,10 @@ function reply(e) {
     var content = $("#reply-" + commentId).val();
     post(commentId, 2, content);
 }
+//点赞
+function incLike() {
+
+}
 
 //显示二级评论
 function collapseComment(e) {

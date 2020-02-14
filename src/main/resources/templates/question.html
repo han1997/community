@@ -71,7 +71,8 @@
                         <div class="like-comment">
                         <span class="text-desc">
 <!--                            点赞按钮-->
-                            <button type="button" class="btn btn-default">
+                            <button type="button" class="btn btn-default" th:data-id="${comment.id}"
+                                    onclick="incLike()">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span th:text="${comment.likeCount}"></span>
                             </button>
@@ -90,7 +91,7 @@
                              th:id="${'comment-' +comment.id}">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="评论一下..."  autocomplete="off"
+                                    <input type="text" class="form-control" placeholder="评论一下..." autocomplete="off"
                                            th:id="${'reply-'+comment.id}">
                                 </div>
                                 <button type="button" class="btn btn-default btn-publish">取消</button>
