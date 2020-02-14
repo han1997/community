@@ -5,11 +5,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/editormd.css">
+    <link rel="stylesheet" href="/css/editormd.preview.css">
     <link rel="stylesheet" href="/css/main.css">
     <script type="application/javascript" src="/js/jQuery.min.js"></script>
     <script type="application/javascript" src="/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/js/main.js"></script>
+    <script type="application/javascript" src="/js/editormd.min.js"></script>
+    <script type="application/javascript" src="/js/lib/marked.min.js"></script>
+    <script type="application/javascript" src="/js/lib/prettify.min.js"></script>
     <script type="application/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            editormd.markdownToHTML("question-markdown-view", {});
+        });
+    </script>
 </head>
 <body>
 <div th:insert="navigation :: nav"></div>
@@ -28,7 +38,9 @@
                 阅读数：&nbsp;&nbsp;<span th:text="${question.viewCount}"></span>
             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-markdown-view">
+                    <textarea style="display: none" th:text="${question.description}"></textarea>
+                </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!--                标签-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -144,7 +156,7 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div>
                 <h4>联系小韩同学</h4>
-                <img class="img-thumbnail" src="/img/wechat.jpg" alt="" style="width: 100%;width: 120px;">
+                <img class="img-thumbnail" src="/static/images/wechat.jpg" alt="" style="width: 100%;width: 120px;">
             </div>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
