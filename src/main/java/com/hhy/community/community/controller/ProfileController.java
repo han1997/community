@@ -43,10 +43,8 @@ public class ProfileController {
             model.addAttribute("paginationDTO",paginationDTO);
         }else if ("replies".equals(action)){
             PaginationDTO paginationDTO = notificationService.listById(user.getId(), page, size);
-            Long unReadCount = notificationService.unReadCount(user.getId());
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
-            model.addAttribute("unReadCount",unReadCount);
             model.addAttribute("paginationDTO",paginationDTO);
         }
         return "profile";
