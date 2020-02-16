@@ -126,6 +126,13 @@
                 <directory>${project.basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>static/fonts/**</include>
+                </includes>
+            </resource>
         </resources>
         <testResources>
             <testResource>

@@ -98,7 +98,7 @@ public class QuestionService {
             page = totalPage;
         }
         paginationDTO.setPagination(totalPage, page);
-        Integer offset = (page - 1) * size;
+        Integer offset = page < 1 ? 0 :(page - 1) * size;
         QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorEqualTo(id);

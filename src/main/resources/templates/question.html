@@ -84,7 +84,7 @@
                         <span class="text-desc">
 <!--                            点赞按钮-->
                             <button type="button" class="btn btn-default" th:data-id="${comment.id}"
-                                    onclick="incLike()">
+                                    onclick="incLike(this)">
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span th:text="${comment.likeCount}"></span>
                             </button>
@@ -156,7 +156,7 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div>
                 <h4>联系小韩同学</h4>
-                <img class="img-thumbnail" src="/static/images/wechat.jpg" alt="" style="width: 100%;width: 120px;">
+                <img class="img-thumbnail" src="/images/wechat.jpg" alt="" style="width: 100%;width: 120px;">
             </div>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

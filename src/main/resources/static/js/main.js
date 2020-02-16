@@ -43,9 +43,17 @@ function reply(e) {
     var content = $("#reply-" + commentId).val();
     post(commentId, 2, content);
 }
-//点赞
-function incLike() {
 
+//点赞
+function incLike(e) {
+    let id = e.getAttribute("data-id");
+    $.ajax({
+        url: "/comment/incLike/" + id,
+        type: "GET",
+        success: function (data) {
+            window.location.reload();
+        }
+})
 }
 
 //显示二级评论
@@ -107,13 +115,13 @@ function hideTags() {
 };
 
 function showTags() {
-        $('#select-tag').show();
+    $('#select-tag').show();
 };
 
 function selectTag(e) {
     let tag = e.getAttribute("data-tag");
     let tags = $("#tag").val();
-    console.log("tag:"+tag+",tags:"+tags);
+    console.log("tag:" + tag + ",tags:" + tags);
     if (tags.indexOf(tag) === -1) {
         if (tags) {
             console.log("111");
@@ -121,6 +129,7 @@ function selectTag(e) {
         } else {
             console.log("222");
             $("#tag").val(tag);
-        };
+        }
+        ;
     }
 }

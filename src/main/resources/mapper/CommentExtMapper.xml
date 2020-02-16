@@ -23,4 +23,10 @@
     comment_count = comment_count + #{commentCount,jdbcType=INTEGER}
     where id = #{id}
   </update>
+  <update id="incLike" parameterType="com.hhy.community.community.model.Comment">
+    update comment
+    set
+    like_count = like_count + 1
+    where id = #{id}
+  </update>
 </mapper>

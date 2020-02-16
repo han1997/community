@@ -55,4 +55,10 @@ public class CommentController {
         List<CommentDTO> commentDTOS = commentService.ListByTargetId(id, CommentTypeEnum.COMMENT);
         return ResultDTO.okOf(commentDTOS);
     }
+    @ResponseBody
+    @RequestMapping(value = "/comment/incLike/{id}",method = RequestMethod.GET)
+    public String incLike(@PathVariable(name = "id") Long id){
+        commentService.incLike(id);
+        return "success";
+    }
 }
